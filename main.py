@@ -1,5 +1,6 @@
-#uvicorn main:app --reload
-#pip install -r requirements.txt
+# .\env\Scripts\activate.bat
+# uvicorn main:app --reload
+# pip install -r requirements.txt
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 from starlette import status

@@ -1,9 +1,6 @@
-import sys
-sys.path.append("..")
-
 from starlette.responses import RedirectResponse
 
-from fastapi import Depends, HTTPException, status, APIRouter, Request, Response, Form
+from fastapi import HTTPException, status, APIRouter, Request, Response, Form, Depends
 from pydantic import BaseModel
 from typing import Optional
 import models
@@ -61,10 +58,8 @@ def verify_password(plain_password, hashed_password):
     return bcrypt_context.verify(plain_password, hashed_password)
 
 
-def authenticate_user(username: str, password: str, db):
-    user = db.query(models.Users)\
-        .filter(models.Users.username == username)\
-        .first()
+def authenticate_user(username: str, password: str, db: Session):
+    user = db.query(models.Users).filter(models.Users.username == username).first()
 
     if not user:
         return False
